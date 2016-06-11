@@ -146,7 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\win32-Neighbors.cpp" />
+    <ClCompile Include="Neighbors.cpp" />
+    <ClCompile Include="src\Windows-Neighbors.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
