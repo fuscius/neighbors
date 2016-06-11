@@ -18,5 +18,8 @@
     <ClCompile Include="testone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="win32-Neighbors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
