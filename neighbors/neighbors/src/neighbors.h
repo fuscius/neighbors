@@ -20,8 +20,20 @@ struct game_button_state
 struct game_controller_input
 {
 	bool IsConnected;
-	float StickAverageX;
-	float StickAverageY;
+
+	union
+	{
+		float Axes[6];
+		struct
+		{
+			float LeftStickX;
+			float LeftStickY;
+			float RightStickX;
+			float RightStickY;
+			float R2;
+			float L2;
+		};
+	};
 
 	// button order matters as we are mapping the values 
 	// directly from GLFW into our keyboard object.

@@ -111,6 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
+		// Clear IsDowns to false for incoming input and update WasDown's.
 		for (int ButtonIndex = 0; ButtonIndex < ArrayCount(GlobalInput.Controller.Buttons); ButtonIndex++)
 		{
 			GlobalInput.Controller.Buttons[ButtonIndex].WasDown = GlobalInput.Controller.Buttons[ButtonIndex].IsDown;
@@ -128,6 +129,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				{
 					GlobalInput.Controller.Buttons[i].IsDown = true;
 				}
+			}
+
+			int countAxes;
+			const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &countAxes);
+			for (int i = 0; i < countAxes; i++)
+			{
+				GlobalInput.Controller.Axes[i] = axes[i];
 			}
 		}
 
