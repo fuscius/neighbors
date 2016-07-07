@@ -88,11 +88,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\lib\glew\include;$(ProjectDir)..\lib\soil\include;$(ProjectDir)..\lib\glm;$(ProjectDir)..\lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\soil\lib;$(ProjectDir)..\lib\glfw\lib-vc2015;$(ProjectDir)..\lib\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -102,13 +104,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\lib\glfw-3.2.bin.WIN64\include;$(ProjectDir)..\lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\lib\glfw-3.2.bin.WIN64\include;$(ProjectDir)..\lib\glm;$(ProjectDir)..\lib\soil\include;$(ProjectDir)..\lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\glew\lib\Release\x64;$(ProjectDir)..\lib\glfw-3.2.bin.WIN64\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;libSOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\glew\lib\Release\x64;$(ProjectDir)..\lib\glfw-3.2.bin.WIN64\lib-vc2015;$(ProjectDir)..\lib\soil\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,10 +148,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\windows-neighbors.cpp" />
+    <ClCompile Include="neighbors.cpp" />
+    <ClCompile Include="resource_manager.cpp" />
+    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="sprite_renderer.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="windows-neighbors.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\neighbors.h" />
+    <ClInclude Include="neighbors.h" />
+    <ClInclude Include="resource_manager.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="sprite_renderer.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
