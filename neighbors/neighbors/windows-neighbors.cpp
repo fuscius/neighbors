@@ -123,7 +123,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Set render-specific controls
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 	// Load textures
-	ResourceManager::LoadTexture("textures/awesomeface.png", GL_TRUE, "face");
+	ResourceManager::LoadTexture("textures/download.png", GL_TRUE, "face");
 
 	GameState gameState = {};
 	gameState.State = 1;
@@ -170,7 +170,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		Renderer->DrawSprite(ResourceManager::GetTexture("face"),
-			glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+			glm::vec2(10, 10), glm::vec2(169 / 2, 297 / 2), 45.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
