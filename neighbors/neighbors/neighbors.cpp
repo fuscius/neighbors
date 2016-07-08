@@ -4,7 +4,22 @@
 
 void GameUpdateAndRender(GameState *gameState, game_input *input)
 {
-
+	if (input->Controller.Up.IsDown == true)
+	{
+		gameState->PlayerY -= 30;
+	}
+	if (input->Controller.Down.IsDown == true)
+	{
+		gameState->PlayerY += 30;
+	}
+	if (input->Controller.Left.IsDown == true)
+	{
+		gameState->PlayerX -= 30;
+	}
+	if (input->Controller.Right.IsDown == true)
+	{
+		gameState->PlayerX += 30;
+	}
 	if (input->Controller.A.IsDown == true)
 	{
 		gameState->State = 1;

@@ -12,6 +12,8 @@ struct GameState
 	// 3 - Score View
 	// 
 	int State;
+	double PlayerX;
+	double PlayerY;
 };
 
 struct game_button_state
