@@ -50,5 +50,8 @@
     <ClInclude Include="neighbors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="windows-neighbors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

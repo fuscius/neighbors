@@ -6,6 +6,7 @@
 #include "resource_manager.h"
 #include "sprite_renderer.h"
 #include <Windows.h>
+#include "windows-neighbors.h"
 
 SpriteRenderer  *Renderer;
 
@@ -124,6 +125,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 	// Load textures
 	ResourceManager::LoadTexture("textures/download.png", GL_TRUE, "face");
+	ResourceManager::LoadTexture("textures/download.jpg", GL_TRUE, "other");
 
 	GameState gameState = {};
 	gameState.State = 1;
@@ -171,7 +173,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		
+		RenderList renderList;
+		RenderObject objects[2];
+		renderList.list = objects;
+
+		RenderObject renderObject = {};
+		renderObject.color = glm::vec3(1.0f, 1.0f, 1.0f);
+		renderObject.name = "other";
+		renderObject.position = glm::vec2(10.0f, 10.0f);
+		renderObject.scale = glm::vec2(169 / 2, 297 / 2);
+
+		Renderer->DrawSprite(ResourceManager::GetTexture(renderObject.name),
+			renderObject.position, renderObject.scale, 45.0f, renderObject.color);
 
 		Renderer->DrawSprite(ResourceManager::GetTexture("face"),
 			glm::vec2(gameState.PlayerX, gameState.PlayerY), glm::vec2(169 / 2, 297 / 2), 45.0f, glm::vec3(1.0f, 1.0f, 1.0f));
