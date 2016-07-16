@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "windows-neighbors.h"
 
 struct GameState
 {
@@ -74,7 +75,7 @@ struct game_input
 	game_controller_input Controller;
 };
 
-void GameUpdateAndRender(GameState *gameState, game_input *input);
+void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *renderList);
 
 #define NEIGHBORS_H
 #endif

@@ -8,11 +8,18 @@ struct RenderObject
 	glm::vec2 position;
 	glm::vec2 scale;
 	glm::vec3 color;
+	RenderObject *next;
 };
 
-struct RenderList
+class RenderList
 {
-	RenderObject* list;
+	RenderObject *head;
+
+public:
+	bool isEmpty = true;
+	void Push(RenderObject *obj);
+
+	RenderObject Pop();
 };
 
 #define WINDOWS_NEIGHBORS_H

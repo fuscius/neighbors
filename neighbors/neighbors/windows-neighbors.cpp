@@ -2,11 +2,38 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "neighbors.h""
+#include "windows-neighbors.h"
+
+void RenderList::Push(RenderObject *obj)
+{
+	obj->next = head;
+	head = obj;
+	isEmpty = false;
+}
+
+RenderObject RenderList::Pop()
+{
+	RenderObject * result;
+	if (head->next == NULL)
+	{
+		return *head;
+	}
+
+	result = head;
+	head = head->next;
+	if (head == NULL)
+		isEmpty = true;
+	return *result;
+}
+
+#include "neighbors.h"
 #include "resource_manager.h"
 #include "sprite_renderer.h"
 #include <Windows.h>
-#include "windows-neighbors.h"
+
+
+
+
 
 SpriteRenderer  *Renderer;
 
@@ -132,6 +159,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	gameState.PlayerX = 200.0;
 	gameState.PlayerY = 200.0;
 
+	RenderList List;
+	//LinkedList myList;
+
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -167,27 +198,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		glfwPollEvents();
 		if (gameState.State == 0)
 			glfwSetWindowShouldClose(window, 1);
-		
+
 		/* Render here */
-		GameUpdateAndRender(&gameState, &GlobalInput);
+
+		GameUpdateAndRender(&gameState, &GlobalInput, &List);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		RenderList renderList;
-		RenderObject objects[2];
-		renderList.list = objects;
-
-		RenderObject renderObject = {};
-		renderObject.color = glm::vec3(1.0f, 1.0f, 1.0f);
-		renderObject.name = "other";
-		renderObject.position = glm::vec2(10.0f, 10.0f);
-		renderObject.scale = glm::vec2(169 / 2, 297 / 2);
-
-		Renderer->DrawSprite(ResourceManager::GetTexture(renderObject.name),
-			renderObject.position, renderObject.scale, 45.0f, renderObject.color);
-
-		Renderer->DrawSprite(ResourceManager::GetTexture("face"),
-			glm::vec2(gameState.PlayerX, gameState.PlayerY), glm::vec2(169 / 2, 297 / 2), 45.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+		while (!List.isEmpty)
+		{
+			List.Pop();
+			//RenderObject obj = renderList.Pop();
+			//Renderer->DrawSprite(ResourceManager::GetTexture(obj.name),
+			//	obj.position, obj.scale, 45.0f, obj.color);
+		}
+		//for (int i = 0; i < ArrayCount(renderList.frontList); i++)
+		//{
+		//	Renderer->DrawSprite(ResourceManager::GetTexture(renderList.frontList[i].name),
+		//		renderList.frontList[i].position, renderList.frontList[i].scale, 45.0f, renderList.frontList[i].color);
+		//}
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);

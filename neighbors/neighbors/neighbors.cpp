@@ -1,8 +1,9 @@
 #include "neighbors.h"
 #include "resource_manager.h"
 #include "sprite_renderer.h"
+#include "windows-neighbors.h"
 
-void GameUpdateAndRender(GameState *gameState, game_input *input)
+void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *renderList)
 {
 	if (input->Controller.Up.IsDown == true)
 	{
@@ -36,6 +37,30 @@ void GameUpdateAndRender(GameState *gameState, game_input *input)
 	{
 		gameState->State = 0;
 	}
+/*
+	RenderObject *Player;
+	Player = new RenderObject[2];
+	Player[0].color = glm::vec3(1.0f, 1.0f, 1.0f);
+	Player[0].name = "face";
+	Player[0].position = glm::vec2(gameState->PlayerX, gameState->PlayerY);
+	Player[0].scale = glm::vec2(169 / 2, 297 / 2);
+
+	Player[1].color = glm::vec3(1.0f, 1.0f, 1.0f);
+	Player[1].name = "other";
+	Player[1].position = glm::vec2(10, 10);
+	Player[1].scale = glm::vec2(200, 200);
+
+	renderList->frontList = Player;
+*/
+
+	char name[5] = "face";
+	RenderObject * Player = new RenderObject;
+	Player->color = glm::vec3(1.0f, 1.0f, 1.0f);
+	Player->name = name;
+	Player->position = glm::vec2(gameState->PlayerX, gameState->PlayerY);
+	Player->scale = glm::vec2(169 / 2, 297 / 2);
+
+	renderList->Push(Player);
 
 	switch (gameState->State)
 	{
