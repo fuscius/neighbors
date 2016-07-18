@@ -4,16 +4,16 @@
 
 struct RenderObject
 {
-	char* name;
+	char* name = NULL;
 	glm::vec2 position;
 	glm::vec2 scale;
 	glm::vec3 color;
-	RenderObject *next;
+	RenderObject *next = NULL;
 };
 
 class RenderList
 {
-	RenderObject *head;
+	RenderObject *head = NULL;
 
 public:
 	bool isEmpty = true;

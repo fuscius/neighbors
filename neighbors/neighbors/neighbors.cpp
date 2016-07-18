@@ -53,12 +53,17 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 	renderList->frontList = Player;
 */
 
-	char name[5] = "face";
+	char *name = "face";
 	RenderObject * Player = new RenderObject;
 	Player->color = glm::vec3(1.0f, 1.0f, 1.0f);
 	Player->name = name;
 	Player->position = glm::vec2(gameState->PlayerX, gameState->PlayerY);
 	Player->scale = glm::vec2(169 / 2, 297 / 2);
+	if (Player->next == NULL)
+	{
+		bool null = true;
+		int x = 5;
+	}
 
 	renderList->Push(Player);
 

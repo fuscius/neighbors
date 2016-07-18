@@ -14,11 +14,6 @@ void RenderList::Push(RenderObject *obj)
 RenderObject RenderList::Pop()
 {
 	RenderObject * result;
-	if (head->next == NULL)
-	{
-		return *head;
-	}
-
 	result = head;
 	head = head->next;
 	if (head == NULL)
@@ -207,10 +202,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		while (!List.isEmpty)
 		{
-			List.Pop();
-			//RenderObject obj = renderList.Pop();
-			//Renderer->DrawSprite(ResourceManager::GetTexture(obj.name),
-			//	obj.position, obj.scale, 45.0f, obj.color);
+			RenderObject obj = List.Pop();
+			Renderer->DrawSprite(ResourceManager::GetTexture(obj.name),
+				obj.position, obj.scale, 45.0f, obj.color);
 		}
 		//for (int i = 0; i < ArrayCount(renderList.frontList); i++)
 		//{
