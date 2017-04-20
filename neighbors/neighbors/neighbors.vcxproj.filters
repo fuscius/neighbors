@@ -27,10 +27,10 @@
     <ClCompile Include="sprite_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="windows-neighbors.cpp">
+    <ClCompile Include="neighbors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="neighbors.cpp">
+    <ClCompile Include="4">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,19 +7,19 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 {
 	if (input->Controller.Up.IsDown == true)
 	{
-		gameState->PlayerY -= 30;
+		gameState->PlayerY -= 20;
 	}
 	if (input->Controller.Down.IsDown == true)
 	{
-		gameState->PlayerY += 30;
+		gameState->PlayerY += 20;
 	}
 	if (input->Controller.Left.IsDown == true)
 	{
-		gameState->PlayerX -= 30;
+		gameState->PlayerX -= 20;
 	}
 	if (input->Controller.Right.IsDown == true)
 	{
-		gameState->PlayerX += 30;
+		gameState->PlayerX += 20;
 	}
 	if (input->Controller.A.IsDown == true)
 	{
@@ -59,13 +59,23 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 	Player->name = name;
 	Player->position = glm::vec2(gameState->PlayerX, gameState->PlayerY);
 	Player->scale = glm::vec2(169 / 2, 297 / 2);
-	if (Player->next == NULL)
-	{
-		bool null = true;
-		int x = 5;
-	}
-
 	renderList->Push(Player);
+
+	RenderObject * Floor = new RenderObject;
+	Floor->color = glm::vec3(1.0f, 1.0f, 1.0f);
+	Floor->name = "floor";
+	Floor->position = glm::vec2(0, 500);
+	Floor->scale = glm::vec2(1241, 200);
+	renderList->Push(Floor);
+
+	RenderObject * BackWall = new RenderObject;
+	BackWall->color = glm::vec3(1.0f, 1.0f, 1.0f);
+	BackWall->name = "backwall";
+	BackWall->position = glm::vec2(0, 150);
+	BackWall->scale = glm::vec2(1091, 375);
+	renderList->Push(BackWall);
+
+
 
 	switch (gameState->State)
 	{

@@ -26,20 +26,11 @@ RenderObject RenderList::Pop()
 #include "sprite_renderer.h"
 #include <Windows.h>
 
-
-
-
-
 SpriteRenderer  *Renderer;
 
 #define ArrayCount(Array) (sizeof(Array) / sizeof((Array)[0]))
 
 static game_input GlobalInput;
-
-// The Width of the screen
-const GLuint SCREEN_WIDTH = 1280;
-// The height of the screen
-const GLuint SCREEN_HEIGHT = 720;
 
 void processWindowsCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -114,13 +105,18 @@ void processWindowsCallback(GLFWwindow* window, int key, int scancode, int actio
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
+	GameState gameState = {};
+	gameState.State = 1;
+	gameState.PlayerX = 200.0;
+	gameState.PlayerY = 200.0;
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Neighbors", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(gameState.ScreenWidth, gameState.ScreenHeight, "Neighbors", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = GL_TRUE; 
@@ -131,7 +127,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	glfwSetKeyCallback(window, processWindowsCallback);
 
 	// OpenGL configuration
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); // Where in the window to render.
+	glViewport(0, 0, gameState.ScreenWidth, gameState.ScreenHeight); // Where in the window to render.
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -139,8 +135,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Load shaders
 	ResourceManager::LoadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
 	// Configure shaders
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(SCREEN_WIDTH),
-		static_cast<GLfloat>(SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(gameState.ScreenWidth),
+		static_cast<GLfloat>(gameState.ScreenHeight), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	// Set render-specific controls
@@ -148,15 +144,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Load textures
 	ResourceManager::LoadTexture("textures/download.png", GL_TRUE, "face");
 	ResourceManager::LoadTexture("textures/download.jpg", GL_TRUE, "other");
-
-	GameState gameState = {};
-	gameState.State = 1;
-	gameState.PlayerX = 200.0;
-	gameState.PlayerY = 200.0;
+	ResourceManager::LoadTexture("textures/grass.png", GL_TRUE, "grass");
+	ResourceManager::LoadTexture("textures/floor.png", GL_TRUE, "floor");
+	ResourceManager::LoadTexture("textures/back_wall.png", GL_TRUE, "backwall");
 
 	RenderList List;
-	//LinkedList myList;
-
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -204,13 +196,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			RenderObject obj = List.Pop();
 			Renderer->DrawSprite(ResourceManager::GetTexture(obj.name),
-				obj.position, obj.scale, 45.0f, obj.color);
+				obj.position, obj.scale, 0.0f, obj.color);
 		}
-		//for (int i = 0; i < ArrayCount(renderList.frontList); i++)
-		//{
-		//	Renderer->DrawSprite(ResourceManager::GetTexture(renderList.frontList[i].name),
-		//		renderList.frontList[i].position, renderList.frontList[i].scale, 45.0f, renderList.frontList[i].color);
-		//}
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);

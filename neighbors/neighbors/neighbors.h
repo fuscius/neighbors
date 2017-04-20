@@ -15,6 +15,11 @@ struct GameState
 	int State;
 	double PlayerX;
 	double PlayerY;
+
+	// The Width of the screen
+	const int ScreenWidth = 1280;
+	// The height of the screen
+	const int ScreenHeight = 720;
 };
 
 struct game_button_state
