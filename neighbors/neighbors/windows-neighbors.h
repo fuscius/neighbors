@@ -19,7 +19,7 @@ public:
 	bool isEmpty = true;
 	void Push(RenderObject *obj);
 
-	RenderObject Pop();
+	RenderObject * Pop();
 };
 
 #define WINDOWS_NEIGHBORS_H

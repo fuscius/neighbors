@@ -7,11 +7,11 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 {
 	if (input->Controller.Up.IsDown == true)
 	{
-		gameState->PlayerY -= 20;
+//		gameState->PlayerY -= 20;
 	}
 	if (input->Controller.Down.IsDown == true)
 	{
-		gameState->PlayerY += 20;
+//		gameState->PlayerY += 20;
 	}
 	if (input->Controller.Left.IsDown == true)
 	{

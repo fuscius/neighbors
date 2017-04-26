@@ -11,14 +11,14 @@ void RenderList::Push(RenderObject *obj)
 	isEmpty = false;
 }
 
-RenderObject RenderList::Pop()
+RenderObject * RenderList::Pop()
 {
 	RenderObject * result;
 	result = head;
 	head = head->next;
 	if (head == NULL)
 		isEmpty = true;
-	return *result;
+	return result;
 }
 
 #include "neighbors.h"
@@ -108,7 +108,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	GameState gameState = {};
 	gameState.State = 1;
 	gameState.PlayerX = 200.0;
-	gameState.PlayerY = 200.0;
+	gameState.PlayerY = 450.0;
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -189,14 +189,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		/* Render here */
 
 		GameUpdateAndRender(&gameState, &GlobalInput, &List);
+
+		float cameraPosX = gameState.PlayerX - 500;
+		float cameraPosY = gameState.PlayerY - 400;
+
+		glm::mat4 projection = glm::ortho(cameraPosX, cameraPosX + static_cast<GLfloat>(gameState.ScreenWidth),
+			cameraPosY + static_cast<GLfloat>(gameState.ScreenHeight), cameraPosY, -1.0f, 1.0f);
+		ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
+		ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		while (!List.isEmpty)
 		{
-			RenderObject obj = List.Pop();
-			Renderer->DrawSprite(ResourceManager::GetTexture(obj.name),
-				obj.position, obj.scale, 0.0f, obj.color);
+			RenderObject * obj = List.Pop();
+			Renderer->DrawSprite(ResourceManager::GetTexture(obj->name),
+				obj->position, obj->scale, 0.0f, obj->color);
+			free(obj);
 		}
 
 		/* Swap front and back buffers */
