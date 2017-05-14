@@ -16,6 +16,8 @@ struct GameState
 	double PlayerX;
 	double PlayerY;
 
+	int RenderState;
+
 	// The Width of the screen
 	const int ScreenWidth = 1280;
 	// The height of the screen

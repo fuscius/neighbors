@@ -148,17 +148,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animatedSpriteRenderer.cpp" />
     <ClCompile Include="neighbors.cpp" />
     <ClCompile Include="resource_manager.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="spriteSheet.cpp" />
     <ClCompile Include="sprite_renderer.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="windows-neighbors.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animatedSpriteRenderer.h" />
     <ClInclude Include="neighbors.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="spriteSheet.h" />
     <ClInclude Include="sprite_renderer.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="windows-neighbors.h" />

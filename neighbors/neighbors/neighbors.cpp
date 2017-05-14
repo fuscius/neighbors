@@ -7,10 +7,16 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 {
 	if (input->Controller.Up.IsDown == true)
 	{
+		gameState->RenderState++;
+		if (gameState->RenderState > 5)
+			gameState->RenderState = 0;
 //		gameState->PlayerY -= 20;
 	}
 	if (input->Controller.Down.IsDown == true)
 	{
+		gameState->RenderState--;
+		if (gameState->RenderState < 0)
+			gameState->RenderState = 5;
 //		gameState->PlayerY += 20;
 	}
 	if (input->Controller.Left.IsDown == true)
@@ -24,6 +30,7 @@ void GameUpdateAndRender(GameState *gameState, game_input *input, RenderList *re
 	if (input->Controller.A.IsDown == true)
 	{
 		gameState->State = 1;
+		
 	}
 	if (input->Controller.B.IsDown == true)
 	{

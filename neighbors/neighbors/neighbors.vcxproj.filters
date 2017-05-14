@@ -30,7 +30,13 @@
     <ClCompile Include="neighbors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="4">
+    <ClCompile Include="windows-neighbors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="animatedSpriteRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="windows-neighbors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="animatedSpriteRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

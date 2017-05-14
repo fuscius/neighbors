@@ -24,9 +24,11 @@ RenderObject * RenderList::Pop()
 #include "neighbors.h"
 #include "resource_manager.h"
 #include "sprite_renderer.h"
+#include "animatedSpriteRenderer.h"
 #include <Windows.h>
 
 SpriteRenderer  *Renderer;
+AnimatedSpriteRenderer *AnimateRenderer;
 
 #define ArrayCount(Array) (sizeof(Array) / sizeof((Array)[0]))
 
@@ -106,6 +108,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	GameState gameState = {};
+	gameState.RenderState = 0;
 	gameState.State = 1;
 	gameState.PlayerX = 200.0;
 	gameState.PlayerY = 450.0;
@@ -141,12 +144,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	// Set render-specific controls
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+	AnimateRenderer = new AnimatedSpriteRenderer(ResourceManager::GetShader("sprite"));
 	// Load textures
 	ResourceManager::LoadTexture("textures/download.png", GL_TRUE, "face");
 	ResourceManager::LoadTexture("textures/download.jpg", GL_TRUE, "other");
 	ResourceManager::LoadTexture("textures/grass.png", GL_TRUE, "grass");
 	ResourceManager::LoadTexture("textures/floor.png", GL_TRUE, "floor");
 	ResourceManager::LoadTexture("textures/back_wall.png", GL_TRUE, "backwall");
+	ResourceManager::LoadSpriteSheet("textures/sonic.png", GL_TRUE, "sonic");
 
 	RenderList List;
 
@@ -208,6 +213,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				obj->position, obj->scale, 0.0f, obj->color);
 			free(obj);
 		}
+
+		AnimateRenderer->DrawSprite(ResourceManager::GetSpriteSheet("sonic"), glm::vec2(cameraPosX, cameraPosY), glm::vec2(64, 72), 0.0f, glm::vec3(1.0f, 1.0f, 1.0f), gameState.RenderState);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
